@@ -1,10 +1,11 @@
 version: '3.8'
 services:
   simple_server:
+    container_name: simpleserver-app
     ports:
       - 8484:8484
     build:
-      context: ./simple_server/
+      context: ./
       dockerfile: ./Dockerfile
     image: simple_server
     restart: unless-stopped
@@ -20,7 +21,7 @@ services:
 
   mongo:
     image: mongo:4.4-bionic
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
     env_file: .env
@@ -31,6 +32,7 @@ services:
       - simple-server-tier
     volumes:
       - simple-server-data:/data/db
+      
 volumes:
   simple-server-data:
     driver: local
