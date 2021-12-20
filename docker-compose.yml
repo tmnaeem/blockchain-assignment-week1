@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  simple_server:
+    ports:
+      - 8484:8484
+    build:
+      context: ./simple_server/
+      dockerfile: ./Dockerfile
+    image: simple_server
+    restart: unless-stopped
+    networks:
+      - simple-server-tier
+    volumes:
+      - ./simple_server/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+    environment:
+      - NODE_ENV=development
+
+  mongo:
+    image: mongo:4.4-bionic
+    restart: always
+    ports:
+      - "27017:27017"
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD:$MONGO_INITDB_ROOT_PASSWORD
+    networks:
+      - simple-server-tier
+    volumes:
+      - simple-server-data:/data/db
+volumes:
+  simple-server-data:
+    driver: local
+
+networks:
+  simple-server-tier:
+    driver: bridge
