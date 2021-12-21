@@ -1,7 +1,7 @@
 'use strict'
 const express = require("express")
 require("dotenv").config();
-require("./db/db")
+require("./db/mongoose")
 
 /**
  * @constants
@@ -15,6 +15,7 @@ const app = express();
 app.get("/", (req, res) => {
     res.send("This is a basic node server");
 });
+
 
 /**
  * @listen 
