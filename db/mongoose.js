@@ -1,11 +1,12 @@
+require('dotenv').config();
 const mongoose = require('mongoose')
 
+const DB = "mongodb://mongo:27017/simpleserverdb"
+
 mongoose
-  .connect(process.env.DATABASE_URL, {
+  .connect(DB, {
     useNewUrlParser: true,
-    useFindAndModify: false,
     useUnifiedTopology: true,
-    useCreateIndex: true
   })
   .then(() => console.log('DB Connected'))
   .catch(err => console.log('DB CONNECTED ERROR: ', err))

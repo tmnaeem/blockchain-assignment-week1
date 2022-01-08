@@ -1,40 +1,36 @@
 version: '3.8'
+
 services:
-  simple_server:
-    container_name: simpleserver-app
+  simple-api-latest:
+    container_name: simple-api-service
     ports:
-      - 8484:8484
+      - "8485:8485"
     build:
-      context: ./
-      dockerfile: ./Dockerfile
-    image: simple_server
+      context: .
+      dockerfile: Dockerfile
+    image: abelregov/simple_server:latest
     restart: unless-stopped
     networks:
       - simple-server-tier
-    volumes:
-      - ./simple_server/:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - mongo
     environment:
+      # - DATABASE_URL=mongodb://mongo:27017/simpleserverdb
       - NODE_ENV=development
 
   mongo:
     image: mongo:4.4-bionic
-    restart: unless-stopped
+    restart: always
     ports:
       - "27017:27017"
-    env_file: .env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD:$MONGO_INITDB_ROOT_PASSWORD
+    # env_file: .env
     networks:
       - simple-server-tier
     volumes:
-      - simple-server-data:/data/db
+      - simple-data:/data/db
       
 volumes:
-  simple-server-data:
+  simple-data:
     driver: local
 
 networks:
