@@ -27,6 +27,11 @@ Please note: this project use the npm package manager to install all our depende
 4. Copy the URL to clone it in your computer
 5. After succefully cloning it, wait for further instructions 
 
+## checkout "dev/compose" branch
+
+- $`git checkout -b dev/compose`
+- $`git pull origin dev/compose`
+
 
 ### Assessment Exercise
 
@@ -34,34 +39,46 @@ We are going to apply the knowledge we have gained from Week 1 modules to write 
 
 
 ## Part 1: Build Custom Image
-Checkout another git branch and name it “exercise”
-First step is to kill all running instances that 
-Verify that the image and container is removed “docker ps”
-Rename the image to “simple-exercise”
-Expose the public port to a new port “9393”
-Build the new image & Verify that the image is created
-Curl “http://0.0.0.0:9393”, alternatively you can copy and paste the url in your browser
+- Checkout another git branch and name it “exercise”
+- First step is to kill all running instances that 
+- Verify that the image and container is removed “docker ps”
+- Rename the image to “simple-exercise”
+- Expose the public port to a new port “9393”
+-Build the new image & Verify that the image is created
+- Curl “http://0.0.0.0:9393”, alternatively you can copy and paste the url in your browser
 
 
 ## Part 2: Networking
-Stop the running processes: create a new custom bridge network called “fabricnet”, & inspect the list of networks to verify that it’s created successfully
-Start 2 containers with the “fabricnet” network and name them c1 & c2
-Open the terminal or command prompt and sh into both containers and run “ping c1” from c2 container
-Run a “nslookup c1” form c2 container and explore the results.
+- Stop the running processes: create a new custom bridge network called “fabricnet”, & inspect the list of networks to verify that it’s created successfully
+- Start 2 containers with the “fabricnet” network and name them c1 & c2
+- Open the terminal or command prompt and sh into both containers and run “ping c1” from c2 container
+- Run a “nslookup c1” form c2 container and explore the results.
 
 
 ## Part 3: Mount Volumes
-Stop the running processes
-Using the same image, create a new container and define and mount the volume name “fabric-data” 
-List the existing volumes to verify that its successfully created
+- Stop the running processes
+- Using the same image, create a new container and define and mount the volume name “fabric-data” 
+- List the existing volumes to verify that its successfully created
 
+## Part 4: Services with docker-compose: Create a docker-compose.yml file
 
-## Part 4: Create a docker-compose.yml file
-1. Write detailed development enviroment docker-compose commands following the specifications of docker compose version "3.8" 
-2. Run `docker-compose build` then 'docker-compose up` to test and run a multi-container services [simple_server container and mongo database container]
-3. The docker-compose.yml file should encapsulate version (3.8), services (simple server & mongo), volume (fabric-data) & network (fabricnet) 
-3. After successfully building the application. Test if you're able to submit formdata using postman
-4. Assessment completion 
+ - Checkout another git branch and name it “compose”
+ - First step is to stop all running instances and remove the containers we just created
+ - Verify that the image and container is removed “docker ps”
+ - Write detailed development enviroment docker-compose commands following the specifications of docker compose version "3.8" 
+  -- Run `docker-compose build` then 'docker-compose up` to test and run a multi-container services 
+  -- The docker-compose.yml file should encapsulate version (3.8), services, volume  & network 
+ - Rename the simple_server container-name to “simple-exercise-app”
+ - Expose the public port to a new port “9944”
+ - Rename the image name to “simple-ex”
+ - Change the network tier to “simple-exe-tier”
+ - Change the storage volume to “simple-exe-data”
+ - Run the compose file to create new images and containers
+ - Verify that the container is created
+ - Curl “http://0.0.0.0:9944”, alternatively you can copy and paste the url in your browser
+ - Verify that you are getting the same custom response message
+
+ - Well done. You have successfully completed the	exercise
 
 
 ## Part 5: Submit
